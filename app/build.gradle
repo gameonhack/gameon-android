@@ -16,6 +16,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "APP_ID", "\"QCi6g6v8HEPYRlJ4rjt9eXbB26Rb870ZHuGDiCMc\""
+            buildConfigField "String", "CLIENT_KEY", "\"2hvvWjK6sOPLSQoqKYEVq4FnRH5AiKTYkqGZhZxo\""
+            buildConfigField "String", "SERVER_URL", "\"http://api.gameonhack.com/gameondev\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -33,4 +38,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:design:25.4.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.parse:parse-android:1.15.7'
 }
