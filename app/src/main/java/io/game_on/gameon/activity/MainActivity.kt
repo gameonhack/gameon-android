@@ -1,5 +1,6 @@
 package io.game_on.gameon
 
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -8,10 +9,12 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import io.game_on.gameon.helper.DataManager
+import io.game_on.gameon.fragment.FeedFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, FeedFragment.OnFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        nav_view.setCheckedItem(R.id.nav_feed);
+
+        /*
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(R.id.fragment_container , FeedFragment() )
+        fragmentTransaction.commit()
+        */
     }
 
     override fun onBackPressed() {
@@ -57,9 +70,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
         when (item.itemId) {
             R.id.nav_feed -> {
                 // Handle the camera action
+
+                fragmentTransaction.replace(R.id.fragment_container , FeedFragment() )
+
             }
             R.id.nav_events -> {
 
@@ -70,15 +90,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_groups -> {
 
             }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
         }
+
+        fragmentTransaction.commit()
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onFragmentInteraction(uri: Uri) {
+
     }
 }

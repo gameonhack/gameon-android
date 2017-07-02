@@ -18,7 +18,6 @@ class User: ParseUser() {
 
     private var image: Bitmap? = null
 
-
     /**
      *  The post's content
      */
@@ -38,18 +37,18 @@ class User: ParseUser() {
         }
 
 
-    //fun getImage(callback: GetImageCallback<Bitmap, Exception>) {
     fun getImage(callback: (image : Bitmap?, Exception?) -> Unit) {
 
         if (this.image == null) {
             val imageFile = getParseFile("image") ?: return
             imageFile.getDataInBackground { data, e ->
-                if (e == null) {
+                if (e != null) {
+                    callback(null, e)
+                } else {
+                    val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
+                    image = bitmap
                     callback(image, null)
                 }
-                val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
-                image = bitmap
-                callback(image, null)
             }
         } else {
             callback(image, null)

@@ -4,6 +4,7 @@ import android.app.Application
 import com.parse.Parse
 import com.parse.ParseObject
 import io.game_on.gameon.model.User
+import io.game_on.gameon.model.Post
 
 class App : Application() {
 
@@ -11,6 +12,7 @@ class App : Application() {
         super.onCreate()
 
         ParseObject.registerSubclass(User::class.java)
+        ParseObject.registerSubclass(Post::class.java)
 
         Parse.initialize(Parse.Configuration.Builder(this)
                 .applicationId(BuildConfig.APP_ID)
